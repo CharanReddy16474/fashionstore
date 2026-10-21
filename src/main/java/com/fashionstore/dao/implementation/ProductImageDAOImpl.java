@@ -45,7 +45,8 @@ public class ProductImageDAOImpl implements ProductImageDAO {
         }
 
         throw new SQLException(
-                "Creating product image failed: no generated ID returned.");
+                "Creating product image failed: no generated ID returned."
+        );
     }
 
     @Override
@@ -114,16 +115,10 @@ public class ProductImageDAOImpl implements ProductImageDAO {
         }
     }
 
-    /*
-     * Performance optimization for the home page.
-     *
-     * Loads images for all supplied product IDs using one connection
-     * and one SELECT query instead of querying every product separately.
-     *
-     * Selection rules:
-     * 1. Use the primary image when it has a usable URL.
-     * 2. Otherwise, use the first usable image ordered by display_order
-     *    and then image_id.
+    /**
+     * Load images for multiple products with one query.
+     * Prefer a usable primary image; otherwise use the first usable
+     * fallback image ordered by display_order and image_id.
      */
     public Map<Long, String> findFirstUsableImageUrlByProductIds(
             List<Long> productIds) throws SQLException {
@@ -160,7 +155,6 @@ public class ProductImageDAOImpl implements ProductImageDAO {
                     ProductImage image = mapImage(resultSet);
                     long productId = image.getProductId();
 
-                    // Keep the primary image with the lowest image ID.
                     if (image.isPrimary()) {
 
                         ProductImage currentPrimary =
@@ -174,7 +168,6 @@ public class ProductImageDAOImpl implements ProductImageDAO {
                         }
                     }
 
-                    // Keep the first usable fallback image.
                     String imageUrl = image.getImageUrl();
 
                     if (imageUrl != null && !imageUrl.isBlank()) {
@@ -197,7 +190,6 @@ public class ProductImageDAOImpl implements ProductImageDAO {
             }
         }
 
-        // Prefer a usable primary image; otherwise use the fallback.
         for (Long productId : productIds) {
 
             ProductImage primary = primaryImages.get(productId);
@@ -261,6 +253,7 @@ public class ProductImageDAOImpl implements ProductImageDAO {
             connection.setAutoCommit(false);
 
             try {
+
                 try (PreparedStatement verify =
                              connection.prepareStatement(verifySql)) {
 
@@ -294,6 +287,7 @@ public class ProductImageDAOImpl implements ProductImageDAO {
                 return true;
 
             } catch (SQLException e) {
+
                 connection.rollback();
                 throw e;
 

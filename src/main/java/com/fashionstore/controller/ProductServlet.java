@@ -1,3 +1,4 @@
+
 package com.fashionstore.controller;
 
 import java.io.IOException;
@@ -27,7 +28,6 @@ import com.fashionstore.dao.implementation.ProductImageDAOImpl;
 import com.fashionstore.model.Brand;
 import com.fashionstore.model.Category;
 import com.fashionstore.model.Product;
-import com.fashionstore.model.ProductImage;
 import com.fashionstore.util.DBConnection;
 
 @WebServlet("/products")
@@ -66,8 +66,7 @@ public class ProductServlet extends HttpServlet {
 
             /*
              * Apply filters only when a department or search term
-             * has been provided. With neither filter, all active
-             * products remain in the catalog.
+             * has been provided.
              */
             if (selectedCategory != null || hasSearch) {
 
@@ -93,48 +92,24 @@ public class ProductServlet extends HttpServlet {
                 );
             }
 
-            // Load images only for the products being displayed.
-            Map<Long, String> productImageByProductId = new HashMap<>();
+            /*
+             * PERFORMANCE IMPROVEMENT:
+             * Load images in bulk instead of querying the database
+             * separately for every product.
+             */
+            List<Long> displayedProductIds =
+                    new ArrayList<>(products.size());
 
             for (Product product : products) {
-
-                long productId = product.getProductId();
-
-                ProductImage primaryImage =
-                        imageDAO.findPrimaryByProductId(productId)
-                                .orElse(null);
-
-                if (primaryImage != null
-                        && primaryImage.getImageUrl() != null
-                        && !primaryImage.getImageUrl().isBlank()) {
-
-                    productImageByProductId.put(
-                            productId,
-                            primaryImage.getImageUrl()
-                    );
-
-                } else {
-
-                    List<ProductImage> images =
-                            imageDAO.findByProductId(productId);
-
-                    for (ProductImage image : images) {
-
-                        if (image.getImageUrl() != null
-                                && !image.getImageUrl().isBlank()) {
-
-                            productImageByProductId.put(
-                                    productId,
-                                    image.getImageUrl()
-                            );
-
-                            break;
-                        }
-                    }
-                }
+                displayedProductIds.add(product.getProductId());
             }
 
-            // Provide the same attributes used by the product JSP.
+            Map<Long, String> productImageByProductId =
+                    imageDAO.findFirstUsableImageUrlByProductIds(
+                            displayedProductIds
+                    );
+
+            // Provide attributes used by the product JSP.
             request.setAttribute("categories", categories);
             request.setAttribute("brands", brands);
             request.setAttribute("products", products);
@@ -145,7 +120,11 @@ public class ProductServlet extends HttpServlet {
                     productImageByProductId
             );
 
-            request.setAttribute("searchQuery", hasSearch ? searchQuery.trim() : "");
+            request.setAttribute(
+                    "searchQuery",
+                    hasSearch ? searchQuery.trim() : ""
+            );
+
             request.setAttribute("searchApplied", hasSearch);
             request.setAttribute("searchResultCount", products.size());
 
@@ -244,15 +223,7 @@ public class ProductServlet extends HttpServlet {
     }
 
     /**
-     * Return product IDs matching both the department and search query.
-     *
-     * A search can match:
-     * - Product name
-     * - Product description
-     * - Brand name
-     * - Category name or slug
-     * - Product ID
-     * - Size, colour or SKU
+     * Return product IDs matching the department and search query.
      */
     private List<Long> findProductIdsByFilters(
             String categorySlug,
@@ -323,22 +294,14 @@ public class ProductServlet extends HttpServlet {
 
             sql.append(
                     "AND (" +
-
                     "LOWER(p.product_name) LIKE ? " +
-
                     "OR LOWER(COALESCE(p.description, '')) LIKE ? " +
-
                     "OR LOWER(COALESCE(b.brand_name, '')) LIKE ? " +
-
                     "OR LOWER(COALESCE(c.category_name, '')) LIKE ? " +
-
                     "OR LOWER(COALESCE(c.category_slug, '')) LIKE ? " +
-
                     "OR CAST(p.product_id AS CHAR) LIKE ? " +
-
                     "OR EXISTS (" +
-                        "SELECT 1 " +
-                        "FROM product_variants pv " +
+                        "SELECT 1 FROM product_variants pv " +
                         "WHERE pv.product_id = p.product_id " +
                         "AND (" +
                             "LOWER(COALESCE(pv.size, '')) LIKE ? " +
@@ -346,14 +309,12 @@ public class ProductServlet extends HttpServlet {
                             "OR LOWER(COALESCE(pv.sku, '')) LIKE ?" +
                         ")" +
                     ")" +
-
                     ") "
             );
 
             String searchPattern =
                     "%" + searchQuery.toLowerCase(Locale.ROOT) + "%";
 
-            // Nine placeholders are used by the search condition.
             for (int i = 0; i < 9; i++) {
                 parameters.add(searchPattern);
             }

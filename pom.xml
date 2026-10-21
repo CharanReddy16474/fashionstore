@@ -34,37 +34,41 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.4.0</version>
         </dependency>
-        <dependency>
-    <groupId>org.mindrot</groupId>
-    <artifactId>jbcrypt</artifactId>
-    <version>0.4</version>
-</dependency>
 
-<dependency>
-    <groupId>jakarta.servlet.jsp</groupId>
-    <artifactId>jakarta.servlet.jsp-api</artifactId>
-    <version>3.1.1</version>
-    <scope>provided</scope>
-</dependency>
+        <!-- Password hashing -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- JSP API for Tomcat 10.1 -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>3.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
         <finalName>fashionstore</finalName>
 
         <plugins>
-            <!-- Java compiler configuration -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
             </plugin>
 
-            <!-- Build the WAR file for Tomcat -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
+
         </plugins>
     </build>
 
