@@ -1,8 +1,8 @@
-
 package com.fashionstore.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,6 @@ import com.fashionstore.dao.implementation.ProductImageDAOImpl;
 import com.fashionstore.model.Brand;
 import com.fashionstore.model.Category;
 import com.fashionstore.model.Product;
-import com.fashionstore.model.ProductImage;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -55,47 +54,18 @@ public class HomeServlet extends HttpServlet {
                 );
             }
 
-            // Find a primary image for each product.
-            Map<Long, String> productImageByProductId =
-                    new HashMap<>();
+            // Collect product IDs for one bulk image query.
+            List<Long> productIds = new ArrayList<>();
 
             for (Product product : products) {
-
-                long productId = product.getProductId();
-
-                ProductImage primaryImage = imageDAO
-                        .findPrimaryByProductId(productId)
-                        .orElse(null);
-
-                if (primaryImage != null
-                        && primaryImage.getImageUrl() != null
-                        && !primaryImage.getImageUrl().isBlank()) {
-
-                    productImageByProductId.put(
-                            productId,
-                            primaryImage.getImageUrl()
-                    );
-
-                } else {
-
-                    List<ProductImage> images =
-                            imageDAO.findByProductId(productId);
-
-                    for (ProductImage image : images) {
-
-                        if (image.getImageUrl() != null
-                                && !image.getImageUrl().isBlank()) {
-
-                            productImageByProductId.put(
-                                    productId,
-                                    image.getImageUrl()
-                            );
-
-                            break;
-                        }
-                    }
-                }
+                productIds.add(product.getProductId());
             }
+
+            // Load all required product image URLs at once.
+            Map<Long, String> productImageByProductId =
+                    imageDAO.findFirstUsableImageUrlByProductIds(
+                            productIds
+                    );
 
             // Send the data to index.jsp.
             request.setAttribute("categories", categories);
