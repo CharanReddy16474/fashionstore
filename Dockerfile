@@ -14,7 +14,10 @@ RUN mvn -B -DskipTests clean package
 FROM tomcat:10.1.61-jre21-temurin
 
 # Use the port required by Render
-RUN sed -i 's/port="8080"/port="10000"/' /usr/local/tomcat/conf/server.xml
+RUN sed -i \
+    -e 's/port="8080"/port="10000"/' \
+    -e 's/port="8005"/port="-1"/' \
+    /usr/local/tomcat/conf/server.xml
 
 # Remove Tomcat's default web applications
 RUN rm -rf /usr/local/tomcat/webapps/*
