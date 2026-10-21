@@ -1,0 +1,556 @@
+
+/* ==============================================
+   FASHION STORE - SHARED STYLES
+   File: style.css
+   Theme: Clean white fashion shopping interface
+   ============================================== */
+
+:root {
+    --page-bg: #ffffff;
+    --surface: #ffffff;
+    --surface-soft: #f5f5f6;
+    --surface-hover: #fafafa;
+    --text-primary: #282c3f;
+    --text-secondary: #696b79;
+    --text-light: #94969f;
+    --border: #e9e9ed;
+    --accent: #ff3f6c;
+    --accent-hover: #e6335d;
+    --success: #14958f;
+    --page-width: 1600px;
+    --transition: 0.2s ease;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--page-bg);
+    color: var(--text-primary);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img,
+svg {
+    display: block;
+}
+
+img {
+    max-width: 100%;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ACCESSIBILITY */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+/* ==============================================
+   SHARED HEADER
+   ============================================== */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    width: min(100%, var(--page-width));
+    min-height: 82px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* BRAND */
+.brand-logo {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    overflow: hidden;
+}
+
+.brand-logo-image {
+    display: block;
+    flex: 0 0 auto;
+    width: 54px;
+    height: 54px;
+    max-width: none;
+    object-fit: contain;
+    object-position: center;
+    background-color: #000000;
+    font-size: 0;
+    color: transparent;
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ff3f6c, #ff8c42);
+    color: #ffffff;
+    font-size: 29px;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -2px;
+    box-shadow: 0 4px 12px rgba(255, 63, 108, 0.13);
+}
+
+.brand-caption {
+    display: none;
+}
+
+/* MAIN NAVIGATION */
+.main-nav {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: clamp(13px, 1.5vw, 28px);
+}
+
+.nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 82px;
+    color: #282c3f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.35px;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+}
+
+.nav-link.active::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: var(--accent);
+    content: "";
+}
+
+.nav-new {
+    align-self: flex-start;
+    margin: 28px 0 0 3px;
+    color: var(--accent);
+    font-size: 9px;
+    font-weight: 800;
+}
+
+/* HEADER SEARCH */
+.header-search {
+    display: flex;
+    flex: 1 1 300px;
+    align-items: center;
+    gap: 12px;
+    min-width: 170px;
+    max-width: 600px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: #f5f5f6;
+    transition:
+        background var(--transition),
+        border-color var(--transition);
+}
+
+.header-search:focus-within {
+    border-color: #d8d8df;
+    background: #ffffff;
+}
+
+.search-icon {
+    flex: 0 0 auto;
+    width: 19px;
+    height: 19px;
+    color: #696b79;
+}
+
+.header-search input {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.header-search input:focus-visible {
+    outline: none;
+}
+
+.header-search input::placeholder {
+    color: #777985;
+}
+
+/* PROFILE, WISHLIST AND BAG */
+.header-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-width: 46px;
+    color: #282c3f;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.header-action svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.header-action:hover {
+    color: var(--accent);
+}
+
+/* ==============================================
+   SHARED BUTTONS
+   ============================================== */
+
+.button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 18px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    transition:
+        background var(--transition),
+        transform var(--transition);
+}
+
+.button-primary:hover {
+    background: var(--accent-hover);
+}
+
+.button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #ffffff;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.button-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ==============================================
+   SHARED FOOTER
+   ============================================== */
+
+.site-footer {
+    margin-top: 40px;
+    padding: 35px 30px 20px;
+    border-top: 1px solid var(--border);
+    background: #fafafa;
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding-bottom: 28px;
+}
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #282c3f;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.footer-brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff3f6c, #ff8c42);
+    color: #ffffff;
+}
+
+.footer-brand span:last-child {
+    color: var(--accent);
+}
+
+.footer-description {
+    max-width: 330px;
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.footer-links-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.footer-links-section h3 {
+    margin-bottom: 5px;
+    color: #282c3f;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.footer-links-section a {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.footer-links-section a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+/* ==============================================
+   SHARED RESPONSIVE STYLES
+   ============================================== */
+
+@media (max-width: 1300px) {
+    .header-inner {
+        gap: 20px;
+        padding-right: 22px;
+        padding-left: 22px;
+    }
+
+    .main-nav {
+        gap: 15px;
+    }
+
+    .header-actions {
+        gap: 13px;
+    }
+
+    .nav-link {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .header-inner {
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .brand-mark {
+        width: 42px;
+        height: 42px;
+    }
+
+    .brand-logo,
+    .brand-logo-image {
+        width: 48px;
+        height: 48px;
+    }
+
+    .main-nav {
+        order: 2;
+        gap: 20px;
+    }
+
+    .nav-link {
+        min-height: 38px;
+        font-size: 12px;
+    }
+
+    .nav-link.active::after {
+        height: 3px;
+    }
+
+    .nav-new {
+        margin-top: 2px;
+    }
+
+    .header-search {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .header-actions {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .header-inner {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        font-size: 24px;
+    }
+
+    .brand-logo,
+    .brand-logo-image {
+        width: 42px;
+        height: 42px;
+    }
+
+    .main-nav {
+        order: 4;
+        width: 100%;
+        gap: 22px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .nav-link {
+        flex-shrink: 0;
+        min-height: 34px;
+        font-size: 11px;
+    }
+
+    .header-actions {
+        gap: 12px;
+    }
+
+    .header-action {
+        min-width: 34px;
+        font-size: 10px;
+    }
+
+    .header-action svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .site-footer {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    .footer-brand-section {
+        grid-column: 1 / -1;
+    }
+
+    .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

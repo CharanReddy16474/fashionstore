@@ -1,0 +1,209 @@
+/* ================================
+   ORDER CONFIRMATION PAGE
+================================ */
+
+.order-confirmation-page {
+    min-height: 65vh;
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-confirmation-card {
+    width: 100%;
+    max-width: 680px;
+    padding: 45px 40px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0 5px 24px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/* Success icon */
+
+.order-success-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background-color: #e8f7ed;
+    color: #198754;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+/* Heading and message */
+
+.order-confirmation-card h1 {
+    margin: 0 0 14px;
+    color: #222222;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.order-confirmation-message {
+    max-width: 480px;
+    margin: 0 auto 30px;
+    color: #666666;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Order details */
+
+.order-confirmation-details {
+    padding: 10px 22px;
+    margin-bottom: 24px;
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    text-align: left;
+}
+
+.confirmation-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.confirmation-detail-row:last-child {
+    border-bottom: none;
+}
+
+.confirmation-detail-row span {
+    color: #666666;
+    font-size: 14px;
+}
+
+.confirmation-detail-row strong {
+    max-width: 60%;
+    color: #222222;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.confirmation-detail-row .confirmation-total {
+    color: #282828;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.confirmation-detail-row .confirmation-payment-status {
+    color: #b7791f;
+}
+
+/* Additional note */
+
+.order-confirmation-note {
+    margin: 0 0 28px;
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Action buttons */
+
+.order-confirmation-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.confirmation-primary-button,
+.confirmation-secondary-button {
+    min-height: 46px;
+    padding: 13px 24px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.confirmation-primary-button {
+    border: 1px solid #222222;
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.confirmation-primary-button:hover {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.confirmation-secondary-button {
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.confirmation-secondary-button:hover {
+    background-color: #f2f2f2;
+    color: #222222;
+}
+
+/* Responsive layout */
+
+@media (max-width: 600px) {
+    .order-confirmation-page {
+        padding: 35px 14px;
+    }
+
+    .order-confirmation-card {
+        padding: 32px 20px;
+    }
+
+    .order-confirmation-card h1 {
+        font-size: 24px;
+    }
+
+    .order-success-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 36px;
+    }
+
+    .order-confirmation-details {
+        padding: 8px 14px;
+    }
+
+    .confirmation-detail-row {
+        gap: 12px;
+    }
+
+    .confirmation-detail-row span,
+    .confirmation-detail-row strong {
+        font-size: 12px;
+    }
+
+    .confirmation-detail-row .confirmation-total {
+        font-size: 16px;
+    }
+
+    .order-confirmation-actions {
+        flex-direction: column;
+    }
+
+    .confirmation-primary-button,
+    .confirmation-secondary-button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

@@ -1,0 +1,14 @@
+
+.git
+.gitignore
+.settings/
+.classpath
+.project
+.idea/
+.vscode/
+target/
+**/target/
+.env
+.env.*
+*.log
+fashion_store_backup.sql

@@ -1,0 +1,358 @@
+
+/* =========================================
+   FASHION STORE - PRODUCT CATALOG
+   ========================================= */
+
+.catalog-layout {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.catalog-main {
+    width: 100%;
+    min-width: 0;
+    padding: 24px 30px 60px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 18px;
+    color: #94969f;
+    font-size: 11px;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent);
+}
+
+.breadcrumb-current {
+    color: #282c3f;
+    font-weight: 600;
+}
+
+/* Heading */
+.catalog-title-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.catalog-title-row h1 {
+    color: #282c3f;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.catalog-item-count {
+    color: #94969f;
+    font-size: 13px;
+}
+
+.catalog-subtitle {
+    margin-bottom: 22px;
+    color: #696b79;
+    font-size: 12px;
+}
+
+/* Sorting toolbar */
+.catalog-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.results-count {
+    color: #696b79;
+    font-size: 12px;
+}
+
+.results-count strong {
+    color: #282c3f;
+}
+
+.sort-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 200px;
+    padding: 9px 12px;
+    border: 1px solid #d4d5d9;
+    border-radius: 3px;
+    background: #ffffff;
+}
+
+.sort-control label {
+    color: #696b79;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.sort-control select {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #282c3f;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+/* Product grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: start;
+    gap: 28px 22px;
+}
+
+.product-card {
+    min-width: 0;
+    overflow: hidden;
+    padding-bottom: 12px;
+    background: #ffffff;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(40, 44, 63, 0.09);
+}
+
+.product-image-link {
+    display: block;
+    overflow: hidden;
+}
+
+/* Product image */
+.product-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 0.74;
+    overflow: hidden;
+    background: #f5f5f6;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.025);
+}
+
+/* Image placeholder for missing images */
+.product-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    background: linear-gradient(145deg, #f8f4f5, #efedf0);
+    color: #aaa0a8;
+}
+
+.product-placeholder-symbol {
+    color: #d6a9b7;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(48px, 5vw, 85px);
+    line-height: 1;
+}
+
+.product-placeholder-label {
+    margin-top: 12px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* Discount badge */
+.product-badge {
+    position: absolute;
+    left: 9px;
+    bottom: 10px;
+    z-index: 2;
+    padding: 4px 7px;
+    border-radius: 2px;
+    background: #ffffff;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* Product details */
+.product-info {
+    padding: 11px 10px 0;
+}
+
+.product-brand {
+    margin-bottom: 4px;
+    overflow: hidden;
+    color: #282c3f;
+    font-size: 13px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-name {
+    min-height: 21px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    color: #535766;
+    font-size: 12px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: #282c3f;
+    font-size: 12px;
+}
+
+.current-price {
+    color: #282c3f;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.original-price {
+    color: #7e818c;
+    font-size: 10px;
+    text-decoration: line-through;
+}
+
+.discount-percent {
+    color: #ff905a;
+    font-size: 10px;
+}
+
+/* No products or no search results */
+.no-results {
+    grid-column: 1 / -1;
+    padding: 65px 20px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: #696b79;
+    text-align: center;
+}
+
+.no-results h2 {
+    margin-bottom: 8px;
+    color: #282c3f;
+    font-size: 19px;
+}
+
+.no-results p {
+    font-size: 13px;
+}
+
+.no-results button {
+    margin-top: 18px;
+    padding: 10px 16px;
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    background: #ffffff;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+    .catalog-main {
+        padding-right: 22px;
+        padding-left: 22px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px 18px;
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+    .catalog-main {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px 15px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .catalog-main {
+        padding: 20px 12px 40px;
+    }
+
+    .catalog-title-row h1 {
+        font-size: 19px;
+    }
+
+    .catalog-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sort-control {
+        width: 100%;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 10px;
+    }
+
+    .product-info {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .product-brand {
+        font-size: 12px;
+    }
+
+    .product-name {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 360px) {
+    .product-grid {
+        gap: 18px 8px;
+    }
+
+    .product-price {
+        gap: 4px;
+    }
+
+    .original-price,
+    .discount-percent {
+        font-size: 9px;
+    }
+}

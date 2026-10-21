@@ -1,0 +1,27 @@
+
+# Maven build output
+target/
+**/target/
+
+# Eclipse workspace files
+.classpath
+.project
+.settings/
+.factorypath
+.springBeans
+
+# IntelliJ and VS Code files
+.idea/
+*.iml
+.vscode/
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+
+# Log files
+*.log
+
+# Local database backups
+fashion_store_backup.sql

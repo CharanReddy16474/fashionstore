@@ -1,0 +1,150 @@
+
+/* ========================================
+   PROFILE DROPDOWN
+======================================== */
+
+.profile-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.profile-menu-details {
+    position: relative;
+}
+
+/* Profile button */
+
+.profile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.profile-menu-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.profile-menu-toggle::marker {
+    content: "";
+}
+
+.profile-menu-toggle:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Dropdown panel */
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -12px;
+    z-index: 2000;
+    width: 250px;
+    box-sizing: border-box;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.13);
+}
+
+/* Show menu only when Profile is clicked */
+
+.profile-menu-details:not([open]) .profile-dropdown {
+    display: none;
+}
+
+/* Welcome section */
+
+.profile-dropdown-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 15px 17px;
+    border-bottom: 1px solid #eee;
+    overflow-wrap: anywhere;
+}
+
+.profile-dropdown-heading strong {
+    color: #222;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.profile-welcome {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Dropdown links */
+
+.profile-dropdown-link {
+    display: flex;
+    width: 100%;
+    min-height: 42px;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 17px;
+    border: none;
+    border-radius: 0;
+    background-color: #fff;
+    color: #333;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.profile-dropdown-link:hover {
+    background-color: #f7f7f7;
+    color: #111;
+}
+
+.profile-dropdown-link:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: -3px;
+}
+
+/* Divider */
+
+.profile-dropdown-divider {
+    height: 1px;
+    margin: 5px 0;
+    background-color: #eee;
+}
+
+/* Logout form */
+
+.profile-logout-form {
+    margin: 0;
+    padding: 0;
+}
+
+.profile-logout-button {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* Mobile screens */
+
+@media (max-width: 600px) {
+    .profile-dropdown {
+        right: -45px;
+        width: 235px;
+    }
+}
